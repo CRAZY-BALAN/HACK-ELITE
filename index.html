@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Namma AI Couch</title>
+  <link rel="icon" type="image/png" href="Screenshot 2026-03-03 173417.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background decorative blobs -->
+<div class="bg-decor">
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
+</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+    <div class="logo-text">🦉 Namma AI Couch</div>
+    <div class="flex items-center gap-4">
+      <span id="streak-display" class="hidden font-bold text-emerald-600 text-sm">Streak: 0 🔥</span>
+      <button class="profile-btn" id="profile-btn">Profile</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════ LANDING PAGE ══════════════ -->
+<main id="landing" class="relative z-1">
+
+  <!-- Sparkle decorations -->
+  <div class="sparkle" style="top:8%;left:12%;animation-delay:0s;">✨</div>
+  <div class="sparkle" style="top:15%;right:10%;animation-delay:1.5s;">⭐</div>
+  <div class="sparkle" style="top:60%;left:5%;animation-delay:0.8s;">💫</div>
+  <div class="sparkle" style="bottom:15%;right:8%;animation-delay:2s;">✨</div>
+
+  <!-- ── TEACHER OWL ── -->
+  <div class="teacher-scene owl-float mx-auto">
+
+    <!-- Shadow -->
+    <div class="owl-shadow"></div>
+
+    <!-- Body wrap -->
+    <div class="owl-body-wrap">
+
+      <!-- HEAD -->
+      <div class="owl-head" style="position:relative;">
+
+        <!-- Mortar board hat -->
+        <div class="mortar-board">
+          <div class="hat-top">
+            <div class="hat-tassel"></div>
+          </div>
+          <div class="hat-cap"></div>
+        </div>
+
+        <!-- Speech bubble -->
+        <div class="speech-bubble">
+          Click my eyes to<br>Start Learning! 👆
+        </div>
+
+        <!-- Face -->
+        <div class="owl-face">
+          <div class="ear-tuft ear-left"></div>
+          <div class="ear-tuft ear-right"></div>
+          <div class="owl-band"></div>
+          <div class="owl-face-belly"></div>
+
+          <!-- EYES -->
+          <div class="owl-eyes">
+            <!-- Study Eye -->
+            <div class="eye-socket" id="study-eye" onclick="openStudy()">
+              <div class="glasses-rim-left"></div>
+              <div class="glasses-bridge" style="left:62px; width:14px;"></div>
+              <div class="eye-inner" id="eyeInnerL">
+                <div class="pupil"></div>
+                <div class="wink-lid"></div>
+              </div>
+              <div class="eye-label label-study">Study</div>
+            </div>
+            <!-- Exam Eye -->
+            <div class="eye-socket" id="exam-eye" onclick="openExam()">
+              <div class="glasses-rim-right"></div>
+              <div class="eye-inner" id="eyeInnerR">
+                <div class="pupil"></div>
+                <div class="wink-lid"></div>
+              </div>
+              <div class="eye-label label-exam">Exam</div>
+            </div>
+          </div>
+
+          <!-- Beak -->
+          <div class="owl-beak"></div>
+        </div>
+      </div>
+
+      <!-- GOWN -->
+      <div class="owl-gown">
+        <div class="gown-collar"></div>
+        <div class="wing wing-l"></div>
+        <div class="wing wing-r">
+          <!-- Pointer stick on right wing -->
+          <div class="pointer-stick">
+            <div class="pointer-tip"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── HERO TEXT ── -->
+  <div style="text-align:center; position:relative; z-index:2;">
+    <div class="hero-headline mb-2">
+      <div class="headline-line1">Unlock Learning</div>
+      <div class="headline-line2">with a Wink! 🦉</div>
+    </div>
+    <p class="hero-sub mb-6 mt-4">
+      Gamified courses with <strong>streak refunds up to 98%</strong>.<br>
+      AI-powered exams on demand — just click an eye to start!
+    </p>
+
+    <!-- Stats -->
+    <div class="flex flex-wrap justify-center gap-3 mb-8">
+      <div class="stat-pill">💰 Refund up to <span>98%</span></div>
+      <div class="stat-pill">🔥 Streak Bonuses <span>+₹10/day</span></div>
+      <div class="stat-pill">🤖 AI-Powered <span>Exams</span></div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-row">
+      <button class="btn-primary" onclick="openStudy()">
+        <i class="fas fa-book-open mr-2"></i>Start Studying
+      </button>
+      <button class="btn-secondary" onclick="openExam()">
+        <i class="fas fa-pen-to-square mr-2"></i>Take an Exam
+      </button>
+    </div>
+  </div>
+</main>
+
+
+<!-- ══════════════ STUDY PAGE ══════════════ -->
+<section id="study-page" class="page-section min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <button onclick="backToLanding()" class="mb-8 px-6 py-3 bg-gray-200 rounded-xl hover:bg-gray-300 flex items-center font-semibold">
+      <i class="fas fa-arrow-left mr-2"></i>Back
+    </button>
+    <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent" style="font-family:'Baloo 2',cursive;">Choose Your Course</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl cursor-pointer border-2 border-transparent hover:border-emerald-300 transition-all" onclick="selectCourse('C')">
+        <i class="fas fa-code text-4xl text-blue-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">C Programming</h3>
+        <p class="text-gray-500">₹200 | Streak Bonus: +₹10/day</p>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl cursor-pointer border-2 border-transparent hover:border-emerald-300 transition-all" onclick="selectCourse('Python')">
+        <i class="fas fa-dragon text-4xl text-orange-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">Python</h3>
+        <p class="text-gray-500">₹200 | Streak Bonus: +₹5/day</p>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl cursor-pointer border-2 border-transparent hover:border-emerald-300 transition-all" onclick="selectCourse('Java')">
+        <i class="fab fa-java text-4xl text-red-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">Java</h3>
+        <p class="text-gray-500">₹200 | Streak Bonus: +₹8/day</p>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl cursor-pointer border-2 border-transparent hover:border-emerald-300 transition-all" onclick="selectCourse('CSE')">
+        <i class="fas fa-graduation-cap text-4xl text-purple-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">CSE Core</h3>
+        <p class="text-gray-500">₹200 | Streak Bonus: +₹10/day</p>
+      </div>
+    </div>
+
+    <!-- Streak & Refund Simulator -->
+    <div class="bg-white p-12 rounded-3xl shadow-2xl max-w-2xl mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-8 text-gray-800">Your Progress</h3>
+      <div class="text-6xl mb-4" id="streak-icon" style="animation:flicker 2s infinite;">🔥</div>
+      <p id="streak-text" class="text-4xl font-black text-emerald-600 mb-4">Streak: 0 days</p>
+      <p class="text-lg mb-2">Daily Bonus: <span id="bonus" class="font-bold text-2xl">₹0</span></p>
+      <p class="text-lg">Refund: <span id="refund" class="font-bold text-3xl text-green-600">92%</span> (₹184/₹200)</p>
+      <div class="mt-8 p-4 bg-gradient-to-r from-emerald-400 to-green-500 text-white rounded-xl">
+        <p class="font-semibold">Complete course: Up to 98% based on tests!</p>
+      </div>
+      <button class="mt-6 px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl text-xl hover:bg-emerald-700 transition-colors">
+        Start Daily Class <i class="fas fa-play ml-2"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ EXAM PAGE ══════════════ -->
+<section id="exam-page" class="page-section min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-20">
+  <div class="max-w-4xl mx-auto px-4">
+    <button onclick="backToLanding()" class="mb-8 px-6 py-3 bg-gray-200 rounded-xl hover:bg-gray-300 flex items-center font-semibold">
+      <i class="fas fa-arrow-left mr-2"></i>Back
+    </button>
+    <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent" style="font-family:'Baloo 2',cursive;">AI Exam Generator</h2>
+
+    <!-- Upload & Settings -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-bold mb-6">Insert Content</h3>
+        <textarea id="content-input" placeholder="Paste text, notes, or upload file content here..." class="w-full p-4 border-2 border-gray-200 rounded-xl resize-vertical h-40 focus:border-indigo-400 outline-none transition-colors"></textarea>
+        <button onclick="generateExam()" class="mt-4 w-full py-4 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-xl hover:opacity-90 transition-opacity">
+          Generate Questions
+        </button>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-bold mb-6">Settings</h3>
+        <label class="block mb-3 font-semibold">Mark Range:
+          <select id="marks" class="ml-2 p-2 border rounded-lg mt-1">
+            <option>2 marks</option>
+            <option>5 marks</option>
+            <option>8 marks</option>
+            <option>16 marks</option>
+          </select>
+        </label>
+        <label class="block mt-4 mb-3 font-semibold">Language:
+          <select id="lang" class="ml-2 p-2 border rounded-lg mt-1">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Tamil</option>
+          </select>
+        </label>
+        <label class="block mt-4 flex items-center gap-2 font-semibold cursor-pointer">
+          <input type="checkbox" id="speech" class="w-4 h-4"> Spell Answers
+        </label>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="exam-results" class="hidden bg-white p-12 rounded-3xl shadow-2xl">
+      <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
+        <h3 class="text-3xl font-bold">Generated Exam (Demo)</h3>
+        <div class="flex gap-2 flex-wrap">
+          <button onclick="suggestYT()" class="px-4 py-2 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-500 transition-colors">YouTube</button>
+          <button onclick="research()" class="px-4 py-2 bg-blue-400 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Research</button>
+          <button onclick="importantQs()" class="px-4 py-2 bg-green-400 text-white rounded-lg font-semibold hover:bg-green-500 transition-colors">Imp Qs</button>
+        </div>
+      </div>
+      <div id="questions" class="space-y-6"></div>
+
+      <!-- Chatbot -->
+      <div class="mt-12 p-6 bg-gray-50 rounded-2xl">
+        <h4 class="font-bold mb-4 text-lg">Chatbot <i class="fas fa-robot text-indigo-500"></i></h4>
+        <div id="chat-messages" class="h-32 overflow-y-auto mb-4 p-4 bg-white rounded-xl border text-sm"></div>
+        <div class="flex">
+          <input id="chat-input" placeholder="Ask doubts..." class="flex-1 p-3 border rounded-l-xl outline-none focus:border-indigo-400">
+          <button onclick="sendChat()" class="px-6 bg-indigo-600 text-white rounded-r-xl hover:bg-indigo-700 font-semibold transition-colors">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  let streak = 0;
+  let course = '';
+
+  // ── Eye follow cursor ──
+  document.addEventListener('mousemove', (e) => {
+    ['eyeInnerL','eyeInnerR'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
+      const dist = 5;
+      el.style.transform = `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`;
+    });
+  });
+
+  // ── Wink ──
+  function winkEye(eyeId) {
+    const el = document.getElementById(eyeId);
+    el.classList.add('eye-winking');
+    setTimeout(() => el.classList.remove('eye-winking'), 350);
+  }
+
+  // ── Navigation ──
+  function openStudy() {
+    winkEye('study-eye');
+    setTimeout(() => {
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('study-page').classList.add('active');
+      updateStreak();
+    }, 200);
+  }
+
+  function openExam() {
+    winkEye('exam-eye');
+    setTimeout(() => {
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('exam-page').classList.add('active');
+    }, 200);
+  }
+
+  function backToLanding() {
+    document.getElementById('study-page').classList.remove('active');
+    document.getElementById('exam-page').classList.remove('active');
+    document.getElementById('exam-results').classList.add('hidden');
+    document.getElementById('landing').style.display = 'flex';
+  }
+
+  // ── Course + streak ──
+  function selectCourse(selected) {
+    course = selected;
+    streak = Math.floor(Math.random() * 15) + 1;
+    updateStreak();
+    alert(`Selected ${course}! Paid ₹200. Build your streak.`);
+  }
+
+  function updateStreak() {
+    const disp = document.getElementById('streak-display');
+    disp.classList.remove('hidden');
+    disp.textContent = `Streak: ${streak} days`;
+    document.getElementById('streak-text').textContent = `Streak: ${streak} days`;
+    document.getElementById('streak-icon').textContent = '🔥'.repeat(Math.min(Math.ceil(streak/5),3));
+    const bonus = streak * 5;
+    document.getElementById('bonus').textContent = `₹${bonus}`;
+    const refundPct = 92 + Math.min(streak/50, 6);
+    document.getElementById('refund').textContent = `${refundPct.toFixed(0)}% (₹${Math.round(200*refundPct/100)}/₹200)`;
+  }
+
+  // ── Exam ──
+  function generateExam() {
+    document.getElementById('exam-results').classList.remove('hidden');
+    const marks = document.getElementById('marks').value;
+    document.getElementById('questions').innerHTML = `
+      <div class="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border-l-4 border-indigo-500">
+        <h4 class="font-bold text-xl mb-2">Q1 (${marks}): Explain key process.</h4>
+        <p class="text-gray-700 mb-4">AI Answer: Plants use sunlight to convert CO₂ and water into glucose... (Translated/Spelled ready)</p>
+        <div class="flex gap-2 text-sm flex-wrap">
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full">YT Suggested</span>
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full">Research Links</span>
+        </div>
+      </div>
+      <div class="p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-l-4 border-emerald-500">
+        <h4 class="font-bold text-xl mb-2">Q2 (${marks}): Short note.</h4>
+        <p class="text-gray-700">Chlorophyll absorbs light energy, primarily in red and blue wavelengths...</p>
+      </div>`;
+  }
+
+  function suggestYT() { alert('YT: https://youtube.com/photosynthesis-tutorial'); }
+  function research() { alert('Google Research: Top papers & images on topic.'); }
+  function importantQs() { alert('Imp Qs: 5 high-weightage questions generated.'); }
+
+  function sendChat() {
+    const input = document.getElementById('chat-input');
+    const msgs = document.getElementById('chat-messages');
+    if (!input.value.trim()) return;
+    msgs.innerHTML += `<div class="mb-1"><strong>You:</strong> ${input.value}</div>`;
+    setTimeout(() => {
+      msgs.innerHTML += `<div class="mb-1"><strong class="text-indigo-600">Bot:</strong> Great question! Here's the clarification... 👍</div><div class="mb-1"><strong class="text-indigo-600"></strong>No, Ai cannot Replace the Human...</div>`;
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 500);
+    input.value = '';
+  }
+
+  document.getElementById('profile-btn').onclick = () => alert('Wallet: ₹150 bonus | Courses: 2 active');
+</script>
+</body>
+</html>

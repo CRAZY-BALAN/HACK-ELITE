@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Namma AI Couch</title>
+  <link rel="icon" type="image/png" href="Screenshot 2026-03-03 173417.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background decorative blobs -->
+<div class="bg-decor">
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
+</div>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+    <div class="logo-text">🦉 Namma AI Couch</div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <div id="header-active-courses" class="hidden active-bar">
+        <i class="fas fa-fire text-orange-500"></i>
+        <span id="header-course-count">0</span> Active
+      </div>
+      <div id="header-wallet" class="hidden active-bar" style="background:#f0fdf4;color:#059669;">
+        <i class="fas fa-wallet"></i>
+        ₹<span id="header-wallet-amt">0</span>
+      </div>
+      <button class="profile-btn" onclick="showProfile()">Profile</button>
+    </div>
+  </div>
+</header>
+
+
+<!-- ══════════════ LANDING PAGE ══════════════ -->
+<main id="landing" class="relative z-1">
+
+  <div class="sparkle" style="top:8%;left:12%;animation-delay:0s;">✨</div>
+  <div class="sparkle" style="top:15%;right:10%;animation-delay:1.5s;">⭐</div>
+  <div class="sparkle" style="top:60%;left:5%;animation-delay:0.8s;">💫</div>
+  <div class="sparkle" style="bottom:15%;right:8%;animation-delay:2s;">✨</div>
+
+  <!-- Teacher Owl -->
+  <div class="teacher-scene owl-float mx-auto">
+    <div class="owl-shadow"></div>
+    <div class="owl-body-wrap">
+      <div class="owl-head" style="position:relative;">
+        <div class="mortar-board">
+          <div class="hat-top"><div class="hat-tassel"></div></div>
+          <div class="hat-cap"></div>
+        </div>
+        <div class="speech-bubble">Click my eyes to<br>Start Learning! 👆</div>
+        <div class="owl-face">
+          <div class="ear-tuft ear-left"></div>
+          <div class="ear-tuft ear-right"></div>
+          <div class="owl-band"></div>
+          <div class="owl-face-belly"></div>
+          <div class="owl-eyes">
+            <div class="eye-socket" id="study-eye" onclick="openStudy()">
+              <div class="glasses-rim-left"></div>
+              <div class="glasses-bridge" style="left:62px;width:14px;"></div>
+              <div class="eye-inner" id="eyeInnerL">
+                <div class="pupil"></div>
+                <div class="wink-lid"></div>
+              </div>
+              <div class="eye-label label-study">Study</div>
+            </div>
+            <div class="eye-socket" id="exam-eye" onclick="openExam()">
+              <div class="glasses-rim-right"></div>
+              <div class="eye-inner" id="eyeInnerR">
+                <div class="pupil"></div>
+                <div class="wink-lid"></div>
+              </div>
+              <div class="eye-label label-exam">Exam</div>
+            </div>
+          </div>
+          <div class="owl-beak"></div>
+        </div>
+      </div>
+      <div class="owl-gown">
+        <div class="gown-collar"></div>
+        <div class="wing wing-l"></div>
+        <div class="wing wing-r">
+          <div class="pointer-stick"><div class="pointer-tip"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Text -->
+  <div style="text-align:center;position:relative;z-index:2;">
+    <div class="hero-headline mb-2">
+      <div class="headline-line1">Unlock Learning</div>
+      <div class="headline-line2">with a Wink! 🦉</div>
+    </div>
+    <p class="hero-sub mb-6 mt-4">
+      Gamified courses with <strong>streak refunds up to 98%</strong>.<br>
+      AI-powered exams on demand — just click an eye to start!
+    </p>
+    <div class="flex flex-wrap justify-center gap-3 mb-8">
+      <div class="stat-pill">💰 Refund up to <span>98%</span></div>
+      <div class="stat-pill">🔥 Streak Bonuses <span>+₹5/click</span></div>
+      <div class="stat-pill">🤖 AI-Powered <span>Exams</span></div>
+    </div>
+    <div class="cta-row">
+      <button class="btn-primary" onclick="openStudy()">
+        <i class="fas fa-book-open mr-2"></i>Start Studying
+      </button>
+      <button class="btn-secondary" onclick="openExam()">
+        <i class="fas fa-pen-to-square mr-2"></i>Take an Exam
+      </button>
+    </div>
+  </div>
+
+</main>
+
+
+<!-- ══════════════ STUDY PAGE ══════════════ -->
+<section id="study-page" class="page-section min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-20">
+  <div class="max-w-6xl mx-auto px-4">
+
+    <button onclick="backToLanding()" class="mb-8 px-6 py-3 bg-gray-200 rounded-xl hover:bg-gray-300 flex items-center font-semibold">
+      <i class="fas fa-arrow-left mr-2"></i>Back
+    </button>
+
+    <!-- Progress bar -->
+    <div id="course-progress-bar" class="hidden mb-8 bg-white rounded-2xl p-5 shadow-lg">
+      <div class="flex items-center justify-between mb-3 flex-wrap gap-3">
+        <span class="font-bold text-gray-700" style="font-family:'Baloo 2',cursive;">📚 Active Courses Progress</span>
+        <span class="text-sm text-gray-500"><span id="progress-count">0</span> / 4 enrolled</span>
+      </div>
+      <div class="w-full bg-gray-100 rounded-full h-4">
+        <div id="progress-fill" class="h-4 rounded-full transition-all duration-700"
+          style="width:0%;background:linear-gradient(90deg,#10b981,#4f46e5);"></div>
+      </div>
+    </div>
+
+    <h2 class="text-4xl font-bold text-center mb-4 bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent"
+      style="font-family:'Baloo 2',cursive;">Choose Your Course</h2>
+    <p class="text-center text-gray-500 mb-10">
+      Click a course to enroll → Click again each day to log class &amp; earn streak!
+    </p>
+
+    <!-- Course Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+
+      <!-- C++ -->
+      <div id="card-CPP" class="course-card bg-white p-8 rounded-2xl shadow-xl border-2 border-transparent"
+        onclick="handleCourseClick('CPP','C++')">
+        <i class="fas fa-code text-4xl text-blue-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">C++</h3>
+        <p class="text-gray-500 text-sm">₹200 | Streak Bonus: +₹5/click</p>
+        <div id="status-CPP" class="mt-3 text-xs font-bold text-gray-400">NOT ENROLLED</div>
+        <div id="streak-bar-CPP" class="hidden mt-3">
+          <div class="flex justify-between text-xs font-bold mb-1">
+            <span class="text-orange-500">🔥 Streak</span>
+            <span id="streak-val-CPP" class="text-orange-600">30</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div id="streak-fill-CPP" class="h-2 rounded-full transition-all duration-500"
+              style="background:linear-gradient(90deg,#f59e0b,#ef4444);width:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Python -->
+      <div id="card-Python" class="course-card bg-white p-8 rounded-2xl shadow-xl border-2 border-transparent"
+        onclick="handleCourseClick('Python','Python')">
+        <i class="fas fa-dragon text-4xl text-orange-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">Python</h3>
+        <p class="text-gray-500 text-sm">₹200 | Streak Bonus: +₹5/click</p>
+        <div id="status-Python" class="mt-3 text-xs font-bold text-gray-400">NOT ENROLLED</div>
+        <div id="streak-bar-Python" class="hidden mt-3">
+          <div class="flex justify-between text-xs font-bold mb-1">
+            <span class="text-orange-500">🔥 Streak</span>
+            <span id="streak-val-Python" class="text-orange-600">30</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div id="streak-fill-Python" class="h-2 rounded-full transition-all duration-500"
+              style="background:linear-gradient(90deg,#f59e0b,#ef4444);width:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Java -->
+      <div id="card-Java" class="course-card bg-white p-8 rounded-2xl shadow-xl border-2 border-transparent"
+        onclick="handleCourseClick('Java','Java')">
+        <i class="fab fa-java text-4xl text-red-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">Java</h3>
+        <p class="text-gray-500 text-sm">₹200 | Streak Bonus: +₹5/click</p>
+        <div id="status-Java" class="mt-3 text-xs font-bold text-gray-400">NOT ENROLLED</div>
+        <div id="streak-bar-Java" class="hidden mt-3">
+          <div class="flex justify-between text-xs font-bold mb-1">
+            <span class="text-orange-500">🔥 Streak</span>
+            <span id="streak-val-Java" class="text-orange-600">30</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div id="streak-fill-Java" class="h-2 rounded-full transition-all duration-500"
+              style="background:linear-gradient(90deg,#f59e0b,#ef4444);width:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CSE Core -->
+      <div id="card-CSE" class="course-card bg-white p-8 rounded-2xl shadow-xl border-2 border-transparent"
+        onclick="handleCourseClick('CSE','CSE Core')">
+        <i class="fas fa-graduation-cap text-4xl text-purple-500 mb-4 block"></i>
+        <h3 class="text-2xl font-bold mb-2">CSE Core</h3>
+        <p class="text-gray-500 text-sm">₹200 | Streak Bonus: +₹5/click</p>
+        <div id="status-CSE" class="mt-3 text-xs font-bold text-gray-400">NOT ENROLLED</div>
+        <div id="streak-bar-CSE" class="hidden mt-3">
+          <div class="flex justify-between text-xs font-bold mb-1">
+            <span class="text-orange-500">🔥 Streak</span>
+            <span id="streak-val-CSE" class="text-orange-600">30</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div id="streak-fill-CSE" class="h-2 rounded-full transition-all duration-500"
+              style="background:linear-gradient(90deg,#f59e0b,#ef4444);width:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+      <div class="streak-card">
+        <div class="text-3xl mb-2">💰</div>
+        <div class="text-sm font-semibold text-gray-500 mb-1">Wallet Balance</div>
+        <div class="text-3xl font-black text-emerald-600" style="font-family:'Baloo 2',cursive;">
+          ₹<span id="wallet-bal">0</span>
+        </div>
+        <div class="text-xs text-gray-400 mt-1">+₹5 per streak click</div>
+      </div>
+      <div class="streak-card">
+        <div class="streak-fire">🔥</div>
+        <div class="streak-num" id="total-streak-display">0</div>
+        <div class="text-sm font-semibold text-gray-500 mt-1">Total Streak Points</div>
+      </div>
+      <div class="streak-card">
+        <div class="text-3xl mb-2">📚</div>
+        <div class="text-sm font-semibold text-gray-500 mb-1">Active Courses</div>
+        <div class="text-3xl font-black text-indigo-600" style="font-family:'Baloo 2',cursive;">
+          <span id="active-count-display">0</span> / 4
+        </div>
+        <div class="text-xs text-gray-400 mt-1">courses enrolled</div>
+      </div>
+    </div>
+
+    <!-- Withdraw section -->
+    <div id="withdraw-section" class="hidden mt-8 max-w-md mx-auto text-center">
+      <div class="bg-gradient-to-r from-amber-50 to-yellow-50 border-2 border-amber-300 rounded-3xl p-8 shadow-xl">
+        <div class="text-5xl mb-4">🎉</div>
+        <h3 class="text-2xl font-black text-amber-700 mb-2" style="font-family:'Baloo 2',cursive;">
+          Withdraw Unlocked!
+        </h3>
+        <p class="text-gray-600 mb-2">You completed your streak! Your refund is ready.</p>
+        <p class="text-3xl font-black text-emerald-600 mb-6">₹<span id="withdraw-amt">0</span></p>
+        <button class="withdraw-btn" onclick="doWithdraw()">💸 Withdraw Now</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════ EXAM PAGE ══════════════ -->
+<section id="exam-page" class="page-section min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 py-20">
+  <div class="max-w-4xl mx-auto px-4">
+
+    <button onclick="backToLanding()" class="mb-8 px-6 py-3 bg-gray-200 rounded-xl hover:bg-gray-300 flex items-center font-semibold">
+      <i class="fas fa-arrow-left mr-2"></i>Back
+    </button>
+
+    <h2 class="text-4xl font-bold text-center mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent"
+      style="font-family:'Baloo 2',cursive;">AI Exam Generator</h2>
+    <p class="text-center text-gray-500 mb-10">
+      Upload files or paste notes — AI generates exam Q&amp;A based on marks &amp; language
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+
+      <!-- Content Input -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-bold mb-4">📥 Insert Content</h3>
+        <div class="upload-zone mb-4" id="upload-zone"
+          onclick="document.getElementById('file-input').click()"
+          ondrop="handleDrop(event)"
+          ondragover="handleDragOver(event)"
+          ondragleave="handleDragLeave(event)">
+          <i class="fas fa-cloud-upload-alt text-3xl text-purple-400 mb-2"></i>
+          <p class="font-semibold text-purple-600 text-sm">Click or drag &amp; drop files here</p>
+          <p class="text-xs text-gray-400 mt-1">
+            Supports: PDF, DOCX, TXT, PNG, JPG, MP3, MP4, PPT, CSV, ZIP &amp; more
+          </p>
+          <input type="file" id="file-input" multiple accept="*/*" class="hidden"
+            onchange="handleFileSelect(event)">
+        </div>
+        <div id="file-list" class="mb-4 flex flex-wrap"></div>
+        <textarea id="content-input"
+          placeholder="Or paste text, notes, syllabus content here..."
+          class="w-full p-4 border-2 border-gray-200 rounded-xl resize-vertical h-32 focus:border-indigo-400 outline-none transition-colors text-sm"></textarea>
+        <button onclick="generateExam()"
+          class="mt-4 w-full py-4 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+          <i class="fas fa-magic"></i> Generate AI Questions
+        </button>
+      </div>
+
+      <!-- Settings -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-bold mb-6">⚙️ Settings</h3>
+        <label class="block mb-4">
+          <span class="font-semibold text-gray-700 block mb-1">📊 Mark Weightage:</span>
+          <select id="marks" class="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-purple-400 outline-none font-semibold">
+            <option value="2">2 Marks — Short Answer (1-2 lines)</option>
+            <option value="5">5 Marks — Brief Explanation (4-6 lines)</option>
+            <option value="8">8 Marks — Detailed Answer (8-10 lines)</option>
+            <option value="16">16 Marks — Essay / Full Answer (15+ lines)</option>
+          </select>
+        </label>
+        <label class="block mb-4">
+          <span class="font-semibold text-gray-700 block mb-1">🌐 Language:</span>
+          <select id="lang" class="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-purple-400 outline-none font-semibold">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Tamil">Tamil</option>
+            <option value="Telugu">Telugu</option>
+            <option value="Kannada">Kannada</option>
+            <option value="Malayalam">Malayalam</option>
+            <option value="Bengali">Bengali</option>
+            <option value="Marathi">Marathi</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer p-3 bg-purple-50 rounded-xl border-2 border-purple-100 hover:border-purple-300 transition-colors">
+          <input type="checkbox" id="speech" class="w-5 h-5 accent-purple-600">
+          <div>
+            <span class="font-semibold text-gray-700 block">🔊 Read Aloud Answers</span>
+            <span class="text-xs text-gray-400">Answers spoken in selected language</span>
+          </div>
+        </label>
+        <div class="mt-4 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+          <div class="flex items-center gap-2 text-indigo-700 font-bold text-sm mb-1">
+            <i class="fas fa-info-circle"></i> Answer Length Guide
+          </div>
+          <div class="text-xs text-gray-500 space-y-1">
+            <div>📝 2 marks → 1-2 lines, definition-level</div>
+            <div>📄 5 marks → Short para, key points</div>
+            <div>📋 8 marks → Detailed with examples</div>
+            <div>📖 16 marks → Full essay with structure</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AI Results -->
+    <div id="exam-results" class="hidden bg-white p-8 rounded-3xl shadow-2xl">
+      <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
+        <h3 class="text-2xl font-bold" style="font-family:'Baloo 2',cursive;">📝 Generated Exam</h3>
+        <div class="flex gap-2 flex-wrap">
+          <button onclick="suggestYT()"
+            class="px-4 py-2 bg-red-100 text-red-700 rounded-lg font-semibold hover:bg-red-200 transition-colors text-sm">
+            <i class="fab fa-youtube mr-1"></i>YouTube
+          </button>
+          <button onclick="research()"
+            class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold hover:bg-blue-200 transition-colors text-sm">
+            <i class="fas fa-search mr-1"></i>Research
+          </button>
+          <button onclick="importantQs()"
+            class="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-semibold hover:bg-green-200 transition-colors text-sm">
+            <i class="fas fa-star mr-1"></i>Imp Qs
+          </button>
+        </div>
+      </div>
+      <div id="questions" class="space-y-4"></div>
+
+      <!-- Chatbot -->
+      <div class="mt-10 p-6 bg-gray-50 rounded-2xl">
+        <h4 class="font-bold mb-4 text-lg" style="font-family:'Baloo 2',cursive;">🤖 AI Doubt Chatbot</h4>
+        <div id="chat-messages"
+          class="h-36 overflow-y-auto mb-4 p-4 bg-white rounded-xl border text-sm space-y-2"></div>
+        <div class="flex gap-2">
+          <input id="chat-input"
+            placeholder="Ask any doubt about the topic..."
+            class="flex-1 p-3 border-2 rounded-xl outline-none focus:border-indigo-400 text-sm"
+            onkeydown="if(event.key==='Enter')sendChat()">
+          <button onclick="sendChat()"
+            class="px-5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 font-semibold transition-colors">
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════ MODAL ══════════════ -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal(event)">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profile-modal" class="modal-overlay hidden" onclick="closeProfileModal(event)">
+  <div class="modal-box" style="max-width:480px;">
+    <span class="modal-close"
+      onclick="document.getElementById('profile-modal').classList.add('hidden')">✕</span>
+    <div id="profile-content"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════ JAVASCRIPT ══════════════ -->
+<script>
+
+// ══════════════════════════════════════════
+//  ⚠️  REPLACE WITH YOUR OWN API KEY
+//  Get your free key at: https://console.anthropic.com
+// ══════════════════════════════════════════
+const ANTHROPIC_API_KEY = "YOUR_API_KEY_HERE";
+
+// ── STATE ──
+const STREAK_START     = 30;
+const WALLET_PER_CLICK = 5;
+
+const state = {
+  courses: {
+    CPP:    { name: 'C++',      enrolled: false, streak: STREAK_START, clicks: 0 },
+    Python: { name: 'Python',   enrolled: false, streak: STREAK_START, clicks: 0 },
+    Java:   { name: 'Java',     enrolled: false, streak: STREAK_START, clicks: 0 },
+    CSE:    { name: 'CSE Core', enrolled: false, streak: STREAK_START, clicks: 0 },
+  },
+  wallet: 0,
+  uploadedFiles: [],
+  chatHistory: [],
+};
+
+// ── EYE FOLLOW CURSOR ──
+document.addEventListener('mousemove', (e) => {
+  ['eyeInnerL', 'eyeInnerR'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const r     = el.getBoundingClientRect();
+    const angle = Math.atan2(e.clientY - (r.top + r.height/2), e.clientX - (r.left + r.width/2));
+    el.style.transform = `translate(${Math.cos(angle)*5}px,${Math.sin(angle)*5}px)`;
+  });
+});
+
+function winkEye(id) {
+  const el = document.getElementById(id);
+  el.classList.add('eye-winking');
+  setTimeout(() => el.classList.remove('eye-winking'), 350);
+}
+
+// ── NAVIGATION ──
+function openStudy() {
+  winkEye('study-eye');
+  setTimeout(() => {
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('study-page').classList.add('active');
+    updateHeaderUI();
+  }, 200);
+}
+function openExam() {
+  winkEye('exam-eye');
+  setTimeout(() => {
+    document.getElementById('landing').style.display = 'none';
+    document.getElementById('exam-page').classList.add('active');
+  }, 200);
+}
+function backToLanding() {
+  document.getElementById('study-page').classList.remove('active');
+  document.getElementById('exam-page').classList.remove('active');
+  document.getElementById('exam-results').classList.add('hidden');
+  document.getElementById('landing').style.display = 'flex';
+  updateHeaderUI();
+}
+
+// ── COURSE CLICK — FULL STREAK WORKFLOW ──
+function handleCourseClick(id, name) {
+  const c = state.courses[id];
+
+  if (!c.enrolled) {
+    showModal(`
+      <div class="text-5xl mb-4">🎓</div>
+      <h2 class="text-2xl font-black mb-1" style="font-family:'Baloo 2',cursive;">${name}</h2>
+      <p class="text-gray-500 mb-4 text-sm">Get ready to start learning!</p>
+      <div class="bg-indigo-50 rounded-2xl p-4 mb-4 text-left">
+        <div class="flex justify-between mb-2"><span class="font-semibold text-gray-600">Course Fee</span><span class="font-black text-indigo-700">₹200</span></div>
+        <div class="flex justify-between mb-2"><span class="font-semibold text-gray-600">Streak Bonus</span><span class="font-black text-emerald-600">+₹5 per class</span></div>
+        <div class="flex justify-between"><span class="font-semibold text-gray-600">Max Refund</span><span class="font-black text-orange-600">Up to 98%</span></div>
+      </div>
+      <div class="bg-yellow-50 rounded-xl p-3 mb-4 text-sm text-yellow-800 font-semibold">
+        💳 Payment of ₹200 Successful! ✅
+      </div>
+      <p class="text-gray-600 text-sm mb-5">
+        You start with <strong>30 streak points</strong>. Each class click: streak −1 and +₹5 wallet. Finish all 30 to unlock withdrawal!
+      </p>
+      <button onclick="enrollCourse('${id}','${name}'); closeModal();"
+        class="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold rounded-xl hover:opacity-90">
+        🚀 Enroll &amp; Start — ${name}
+      </button>`);
+    return;
+  }
+
+  if (c.streak <= 0) {
+    showStreakPopupAt(getCardRect(id), '✅ Course Complete!\nWithdraw is enabled', '#10b981', '#d1fae5');
+    return;
+  }
+
+  c.streak--;
+  c.clicks++;
+  state.wallet += WALLET_PER_CLICK;
+  updateCourseCard(id);
+  updateWalletUI();
+
+  const rect = getCardRect(id);
+  if (c.streak === 0) {
+    showStreakPopupAt(rect, `🏆 Streak Done!\n+₹5 • Withdraw Unlocked!`, '#f59e0b', '#fef3c7');
+    showWithdrawSection();
+  } else if (c.streak === 1) {
+    showStreakPopupAt(rect, `⚡ Last Streak: 1 left!\n+₹5 to wallet`, '#ef4444', '#fee2e2');
+  } else {
+    showStreakPopupAt(rect, `🔥 Streak: ${c.streak} left\n+₹5 to wallet!`, '#ef4444', '#fee2e2');
+  }
+  checkWithdrawEligibility();
+}
+
+function getCardRect(id) { return document.getElementById('card-' + id).getBoundingClientRect(); }
+
+function enrollCourse(id) {
+  state.courses[id].enrolled = true;
+  document.getElementById('card-' + id).classList.add('enrolled');
+  document.getElementById('status-' + id).textContent = '✅ ENROLLED — Click to log class!';
+  document.getElementById('status-' + id).style.color = '#10b981';
+  document.getElementById('streak-bar-' + id).classList.remove('hidden');
+  updateProgressBar(); updateHeaderUI(); updateActiveCount();
+  document.getElementById('course-progress-bar').classList.remove('hidden');
+}
+
+function updateCourseCard(id) {
+  const c = state.courses[id];
+  const card = document.getElementById('card-' + id);
+  card.classList.add('active-course');
+  setTimeout(() => card.classList.remove('active-course'), 600);
+
+  const pct = (c.streak / STREAK_START) * 100;
+  const fill = document.getElementById('streak-fill-' + id);
+  if (fill) {
+    fill.style.width = pct + '%';
+    fill.style.background = pct < 33 ? 'linear-gradient(90deg,#10b981,#059669)'
+      : pct < 66 ? 'linear-gradient(90deg,#f59e0b,#d97706)'
+      : 'linear-gradient(90deg,#f59e0b,#ef4444)';
+  }
+  const sv = document.getElementById('streak-val-' + id);
+  if (sv) sv.textContent = c.streak;
+
+  const st = document.getElementById('status-' + id);
+  if (c.streak <= 0) { st.textContent = '🏆 COMPLETED — Withdraw Available!'; st.style.color = '#f59e0b'; }
+  else               { st.textContent = `📅 Class ${c.clicks} logged | 🔥 ${c.streak} streak left`; st.style.color = '#6366f1'; }
+
+  const total = Object.values(state.courses).filter(cc => cc.enrolled).reduce((s,cc) => s+cc.streak, 0);
+  document.getElementById('total-streak-display').textContent = total;
+}
+
+function updateWalletUI() {
+  document.getElementById('wallet-bal').textContent = state.wallet;
+  document.getElementById('header-wallet-amt').textContent = state.wallet;
+  document.getElementById('header-wallet').classList.remove('hidden');
+}
+function updateProgressBar() {
+  const n = Object.values(state.courses).filter(c => c.enrolled).length;
+  document.getElementById('progress-count').textContent = n;
+  document.getElementById('progress-fill').style.width = (n/4*100) + '%';
+}
+function updateHeaderUI() {
+  const n = Object.values(state.courses).filter(c => c.enrolled).length;
+  if (n > 0) { document.getElementById('header-active-courses').classList.remove('hidden'); document.getElementById('header-course-count').textContent = n; }
+}
+function updateActiveCount() {
+  document.getElementById('active-count-display').textContent = Object.values(state.courses).filter(c=>c.enrolled).length;
+}
+function checkWithdrawEligibility() {
+  if (Object.values(state.courses).some(c => c.enrolled && c.streak === 0)) showWithdrawSection();
+}
+function showWithdrawSection() {
+  document.getElementById('withdraw-section').classList.remove('hidden');
+  document.getElementById('withdraw-amt').textContent = state.wallet;
+  setTimeout(() => document.getElementById('withdraw-section').scrollIntoView({behavior:'smooth',block:'center'}), 300);
+}
+function doWithdraw() {
+  showModal(`
+    <div class="text-6xl mb-4">🎉</div>
+    <h2 class="text-2xl font-black text-emerald-600 mb-2" style="font-family:'Baloo 2',cursive;">Withdrawal Successful!</h2>
+    <p class="text-gray-600 mb-4">₹${state.wallet} has been transferred to your bank account.</p>
+    <div class="bg-emerald-50 rounded-2xl p-4 text-left mb-4">
+      <div class="flex justify-between mb-2"><span class="text-gray-600">Amount</span><span class="font-black text-emerald-600">₹${state.wallet}</span></div>
+      <div class="flex justify-between mb-2"><span class="text-gray-600">UTR</span><span class="font-black text-gray-700">#NAC${Date.now().toString().slice(-8)}</span></div>
+      <div class="flex justify-between"><span class="text-gray-600">Status</span><span class="font-black text-green-500">✅ Processed</span></div>
+    </div>
+    <button onclick="closeModal()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold rounded-xl">Done! 🎊</button>`);
+}
+
+// ── STREAK FLOATING POPUP ──
+function showStreakPopupAt(rect, text, color, bg) {
+  const popup = document.createElement('div');
+  popup.className = 'streak-popup';
+  const lines = text.split('\n');
+  popup.innerHTML = `<div class="streak-popup-inner" style="border-color:${color};background:${bg};">
+    <div style="font-size:1.3rem;font-weight:900;color:${color};font-family:'Baloo 2',cursive;">${lines[0]}</div>
+    ${lines[1]?`<div style="font-size:0.85rem;color:#374151;margin-top:4px;font-weight:700;">${lines[1]}</div>`:''}
+  </div>`;
+  popup.style.left = Math.max(10, rect.left + rect.width/2 - 110) + 'px';
+  popup.style.top  = (rect.top + window.scrollY - 100) + 'px';
+  document.body.appendChild(popup);
+  setTimeout(() => {
+    popup.style.transition = 'opacity 0.5s,transform 0.5s';
+    popup.style.opacity = '0'; popup.style.transform = 'translateY(-24px)';
+    setTimeout(() => popup.remove(), 600);
+  }, 1800);
+}
+
+// ── MODAL ──
+function showModal(html) {
+  document.getElementById('modal-content').innerHTML = html;
+  document.getElementById('modal-overlay').classList.remove('hidden');
+}
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay') || (e.currentTarget && e.currentTarget.classList.contains('modal-close')))
+    document.getElementById('modal-overlay').classList.add('hidden');
+}
+function closeProfileModal(e) {
+  if (!e || e.target === document.getElementById('profile-modal'))
+    document.getElementById('profile-modal').classList.add('hidden');
+}
+
+// ── PROFILE ──
+function showProfile() {
+  const enrolled = Object.values(state.courses).filter(c => c.enrolled);
+  const rows = enrolled.length
+    ? enrolled.map(c=>`<div class="flex justify-between items-center py-2 border-b border-gray-100">
+        <span class="font-semibold">${c.name}</span>
+        <div class="flex items-center gap-3 text-sm">
+          <span class="text-orange-500 font-bold">🔥 ${c.streak} left</span>
+          <span class="text-emerald-600 font-bold">₹${c.clicks*WALLET_PER_CLICK} earned</span>
+        </div></div>`).join('')
+    : '<p class="text-gray-400 text-sm py-2">No courses enrolled yet.</p>';
+  document.getElementById('profile-content').innerHTML = `
+    <div class="text-center mb-5"><div class="text-5xl mb-2">👤</div>
+      <h2 class="text-2xl font-black" style="font-family:'Baloo 2',cursive;">My Profile</h2></div>
+    <div class="bg-gradient-to-r from-emerald-50 to-indigo-50 rounded-2xl p-4 mb-5 flex justify-around">
+      <div class="text-center"><div class="text-2xl font-black text-emerald-600">₹${state.wallet}</div><div class="text-xs text-gray-500">Wallet</div></div>
+      <div class="text-center"><div class="text-2xl font-black text-indigo-600">${enrolled.length}</div><div class="text-xs text-gray-500">Courses</div></div>
+      <div class="text-center"><div class="text-2xl font-black text-orange-500">${Object.values(state.courses).reduce((s,c)=>s+c.clicks,0)}</div><div class="text-xs text-gray-500">Classes</div></div>
+    </div>
+    <div class="mb-2 font-bold text-gray-700">Enrolled Courses</div>${rows}
+    <button onclick="document.getElementById('profile-modal').classList.add('hidden')"
+      class="mt-5 w-full py-3 bg-indigo-600 text-white font-bold rounded-xl">Close</button>`;
+  document.getElementById('profile-modal').classList.remove('hidden');
+}
+
+// ── FILE UPLOADS ──
+function handleFileSelect(e)  { addFiles(Array.from(e.target.files)); }
+function handleDrop(e)        { e.preventDefault(); document.getElementById('upload-zone').classList.remove('dragover'); addFiles(Array.from(e.dataTransfer.files)); }
+function handleDragOver(e)    { e.preventDefault(); document.getElementById('upload-zone').classList.add('dragover'); }
+function handleDragLeave()    { document.getElementById('upload-zone').classList.remove('dragover'); }
+function addFiles(files)      { files.forEach(f => { if (!state.uploadedFiles.find(x=>x.name===f.name)) state.uploadedFiles.push(f); }); renderFileList(); }
+function removeFile(name)     { state.uploadedFiles = state.uploadedFiles.filter(f=>f.name!==name); renderFileList(); }
+function getFileIcon(name)    { const ext=name.split('.').pop().toLowerCase(); return {pdf:'📄',doc:'📝',docx:'📝',txt:'📃',png:'🖼️',jpg:'🖼️',jpeg:'🖼️',mp3:'🎵',mp4:'🎬',ppt:'📊',pptx:'📊',csv:'📈',xlsx:'📊',zip:'🗜️',rar:'🗜️'}[ext]||'📎'; }
+function renderFileList()     { document.getElementById('file-list').innerHTML = state.uploadedFiles.map(f=>`<div class="file-chip">${getFileIcon(f.name)} ${f.name.length>18?f.name.slice(0,15)+'…':f.name}<span class="remove" onclick="removeFile('${f.name}')">×</span></div>`).join(''); }
+
+// ── EXAM GENERATION — AI API CALL ──
+async function generateExam() {
+  const textContent = document.getElementById('content-input').value.trim();
+  const marksVal    = document.getElementById('marks').value;
+  const lang        = document.getElementById('lang').value;
+  const doSpell     = document.getElementById('speech').checked;
+
+  if (!textContent && state.uploadedFiles.length === 0) {
+    showModal(`<div class="text-4xl mb-3">⚠️</div><p class="font-bold text-gray-700 mb-4">Please paste some text or upload a file first!</p><button onclick="closeModal()" class="px-6 py-3 bg-indigo-500 text-white rounded-xl font-bold">OK</button>`);
+    return;
+  }
+
+  const lengthGuide = {'2':'very short — 1 to 2 lines maximum, definition level only','5':'short paragraph — 4 to 6 lines, cover key points only','8':'detailed answer — 8 to 10 lines, include examples and explanation','16':'long essay — minimum 15 lines, structured with introduction, body points, examples, and conclusion'}[marksVal];
+
+  document.getElementById('exam-results').classList.remove('hidden');
+  document.getElementById('exam-results').scrollIntoView({behavior:'smooth'});
+  document.getElementById('questions').innerHTML = `<div class="ai-loader p-4"><div class="dot-spin"></div><div class="dot-spin"></div><div class="dot-spin"></div><span>AI generating questions in ${lang}...</span></div>`;
+
+  const fileNames    = state.uploadedFiles.map(f=>f.name).join(', ');
+  const inputContent = textContent ? (fileNames?`${textContent}\n[Also uploaded: ${fileNames}]`:textContent) : `[Uploaded files: ${fileNames}]`;
+  const spellNote    = doSpell ? `After each answer, add a short "🔊 Pronunciation:" section with phonetic spelling of the 3 most important technical terms in ${lang}.` : '';
+  const transNote    = lang !== 'English' ? `CRITICAL: Write ALL questions and answers entirely in ${lang} language. Translate everything.` : 'Write everything in English.';
+
+  const prompt = `You are an expert exam paper generator for students.\n\nGenerate exactly 3 exam questions with model answers from the content below.\n\nCONTENT:\n${inputContent}\n\nRULES:\n1. Mark weightage per question: ${marksVal} marks\n2. Answer length: ${lengthGuide}\n3. ${transNote}\n4. Questions must be based strictly on the provided content.\n5. ${spellNote}\n\nReturn ONLY a valid JSON array (no markdown, no extra text):\n[\n  {"question":"...","answer":"...","tip":"..."},\n  {"question":"...","answer":"...","tip":"..."},\n  {"question":"...","answer":"...","tip":"..."}\n]`;
+
+  try {
+    const res  = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type":"application/json", "x-api-key":ANTHROPIC_API_KEY, "anthropic-version":"2023-06-01", "anthropic-dangerous-direct-browser-access":"true" },
+      body: JSON.stringify({ model:"claude-opus-4-6", max_tokens:2000, messages:[{role:"user",content:prompt}] })
+    });
+    const data = await res.json();
+    const qs   = JSON.parse(data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'').trim());
+    renderQuestions(qs, marksVal, lang, doSpell);
+  } catch(err) {
+    console.error(err);
+    renderQuestions([
+      {question:`Explain the main concept from the provided content. (${marksVal} marks)`, answer:`Demo answer: Add your Anthropic API key in ANTHROPIC_API_KEY variable to get real AI answers. The answer will be: ${lengthGuide}.`, tip:'Add your key from console.anthropic.com'},
+      {question:`Describe the key process or algorithm mentioned. (${marksVal} marks)`,   answer:`Demo answer: Real AI answers will follow the ${marksVal}-mark format of ${lengthGuide}.`,                                        tip:'Review the content before attempting.'},
+      {question:`What are the advantages and applications? (${marksVal} marks)`,           answer:`Demo answer: Tailored AI answers will be generated once the API key is configured. Format: ${lengthGuide}.`,                      tip:'Use bullet points for advantages.'}
+    ], marksVal, lang, doSpell);
+  }
+}
+
+function renderQuestions(questions, marksVal, lang, doSpell) {
+  const cls = {'2':'marks-2','5':'marks-5','8':'marks-8','16':'marks-16'}[marksVal]||'marks-5';
+  const clr = {'2':'#10b981','5':'#3b82f6','8':'#8b5cf6','16':'#ef4444'}[marksVal];
+  document.getElementById('questions').innerHTML = questions.map((q,i)=>`
+    <div class="answer-card ${cls}">
+      <div class="flex items-start justify-between gap-3 mb-3 flex-wrap">
+        <h4 class="font-bold text-lg text-gray-800 flex-1">Q${i+1}. ${q.question}</h4>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <span class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background:${clr}">${marksVal} marks</span>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700">${lang}</span>
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 mb-3">
+        <div class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Model Answer:</div>
+        <p class="text-gray-700 text-sm leading-relaxed whitespace-pre-line">${q.answer}</p>
+      </div>
+      ${q.tip?`<div class="bg-yellow-50 rounded-lg px-3 py-2 text-xs text-yellow-700 font-semibold mb-3">💡 Exam Tip: ${q.tip}</div>`:''}
+      ${doSpell?`<button class="speak-btn" id="speak-btn-${i}" onclick="speakAnswer(${i},'${lang}')"><i class="fas fa-volume-up mr-1"></i>Read Aloud in ${lang}</button>`:''}
+    </div>`).join('');
+  window._examAnswers = questions.map(q=>q.answer);
+}
+
+// ── TEXT TO SPEECH ──
+const langCodeMap = {'English':'en-US','Hindi':'hi-IN','Tamil':'ta-IN','Telugu':'te-IN','Kannada':'kn-IN','Malayalam':'ml-IN','Bengali':'bn-IN','Marathi':'mr-IN'};
+let currentUtterance = null;
+
+function speakAnswer(idx, lang) {
+  if (!window._examAnswers) return;
+  const btn  = document.getElementById('speak-btn-' + idx);
+  const text = window._examAnswers[idx];
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    document.querySelectorAll('.speak-btn').forEach(b => { b.classList.remove('speaking'); b.innerHTML=`<i class="fas fa-volume-up mr-1"></i>Read Aloud in ${lang}`; });
+    if (btn && btn.dataset.active==='true') { btn.dataset.active='false'; return; }
+  }
+  const utt   = new SpeechSynthesisUtterance(text);
+  utt.lang    = langCodeMap[lang]||'en-US';
+  utt.rate    = 0.88;
+  utt.onstart = ()=>{ if(btn){btn.classList.add('speaking');btn.dataset.active='true';btn.innerHTML=`<i class="fas fa-stop mr-1"></i>Stop`;} };
+  utt.onend   = ()=>{ if(btn){btn.classList.remove('speaking');btn.dataset.active='false';btn.innerHTML=`<i class="fas fa-volume-up mr-1"></i>Read Aloud in ${lang}`;} };
+  utt.onerror = ()=>{ if(btn){btn.classList.remove('speaking');btn.innerHTML=`<i class="fas fa-volume-up mr-1"></i>Read Aloud in ${lang}`;} };
+  currentUtterance = utt;
+  speechSynthesis.speak(utt);
+}
+
+// ── AI CHATBOT — API CALL ──
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msgs  = document.getElementById('chat-messages');
+  const text  = input.value.trim();
+  if (!text) return;
+  msgs.innerHTML += `<div class="flex justify-end"><div class="bg-indigo-100 text-indigo-800 rounded-xl rounded-tr-sm px-3 py-2 text-sm font-semibold max-w-xs">${text}</div></div>`;
+  input.value = ''; msgs.scrollTop = msgs.scrollHeight;
+  state.chatHistory.push({role:'user',content:text});
+  const tid = 'typing-'+Date.now();
+  msgs.innerHTML += `<div id="${tid}" class="flex gap-2 items-center"><div class="ai-loader px-3 py-2"><div class="dot-spin"></div><div class="dot-spin"></div><div class="dot-spin"></div></div></div>`;
+  msgs.scrollTop = msgs.scrollHeight;
+  try {
+    const res   = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":ANTHROPIC_API_KEY,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify({model:"claude-opus-4-6",max_tokens:350,system:"You are a friendly and concise study assistant for students. Answer doubts clearly in 2-3 sentences. Be encouraging and use simple language.",messages:state.chatHistory})
+    });
+    const data  = await res.json();
+    const reply = data.content[0].text;
+    state.chatHistory.push({role:'assistant',content:reply});
+    document.getElementById(tid)?.remove();
+    msgs.innerHTML += `<div class="flex justify-start"><div class="bg-white border border-gray-200 text-gray-700 rounded-xl rounded-tl-sm px-3 py-2 text-sm max-w-xs shadow-sm"><strong class="text-indigo-600">🦉 Bot: </strong>${reply}</div></div>`;
+  } catch {
+    document.getElementById(tid)?.remove();
+    msgs.innerHTML += `<div class="flex justify-start"><div class="bg-white border border-gray-200 text-gray-700 rounded-xl rounded-tl-sm px-3 py-2 text-sm max-w-xs shadow-sm"><strong class="text-indigo-600">🦉 Bot: </strong>Please add your API key to enable AI chat. Get it free at console.anthropic.com 🔑</div></div>`;
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ── UTILITY BUTTONS ──
+function suggestYT()     { window.open(`https://www.youtube.com/results?search_query=${document.getElementById('content-input').value.split(' ').slice(0,5).join('+')||'programming+tutorial'}`, '_blank'); }
+function research()      { window.open(`https://scholar.google.com/scholar?q=${document.getElementById('content-input').value.split(' ').slice(0,5).join('+')||'computer+science'}`, '_blank'); }
+function importantQs()   {
+  showModal(`<div class="text-4xl mb-3">⭐</div>
+    <h3 class="text-xl font-black mb-4" style="font-family:'Baloo 2',cursive;">Important Question Types</h3>
+    <div class="text-left space-y-3 text-sm">
+      <div class="p-3 bg-red-50 rounded-xl border-l-4 border-red-400"><strong class="text-red-700">High Priority — 16 Marks:</strong><br>Detailed explanations with diagrams, comparisons, real-world applications</div>
+      <div class="p-3 bg-orange-50 rounded-xl border-l-4 border-orange-400"><strong class="text-orange-700">Medium Priority — 8 Marks:</strong><br>Describe processes, algorithms, advantages &amp; disadvantages</div>
+      <div class="p-3 bg-blue-50 rounded-xl border-l-4 border-blue-400"><strong class="text-blue-700">Standard — 5 Marks:</strong><br>Short notes, write about topics, list &amp; explain 5 points</div>
+      <div class="p-3 bg-green-50 rounded-xl border-l-4 border-green-400"><strong class="text-green-700">Quick — 2 Marks:</strong><br>Define terms, state differences, give one example</div>
+    </div>
+    <button onclick="closeModal()" class="mt-5 w-full py-3 bg-indigo-500 text-white font-bold rounded-xl">Got it! 👍</button>`);
+}
+
+</script>
+</body>
+</html>
